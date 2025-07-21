@@ -1,0 +1,9 @@
+services:
+  backend:
+    build:
+      context: ../backend # actual project code
+      dockerfile: ../docker/backend/Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000"
+    restart: always
