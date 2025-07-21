@@ -20,8 +20,9 @@ jobs:
       - name: Deploy on EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} "
-            cd ~/ss2cv-backend &&
+            cd ~/ss2cv &&
             git pull &&
+            cd docker &&
             docker-compose down &&
             docker-compose up -d --build
           "
