@@ -3,6 +3,10 @@ name: Backend CI/CD
 on:
   push:
     branches: [main]
+    paths:
+      - 'backend/**'
+      - 'docker/**'
+      - '.github/workflows/backend-deploy.yml'
 
 jobs:
   backend-deploy:
