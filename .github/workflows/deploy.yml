@@ -20,9 +20,8 @@ jobs:
       - name: Deploy Backend on EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} "
-            cd ~/ss2cv &&
             git pull &&
-            cd docker &&
+            cd ss2cv/docker &&
             docker compose pull backend || true &&
             docker compose build backend &&
             docker compose up -d backend
