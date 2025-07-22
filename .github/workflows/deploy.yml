@@ -20,11 +20,14 @@ jobs:
       - name: Deploy Backend on EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} "
-            git pull &&
-            cd ss2cv/docker &&
-            docker compose pull backend || true &&
-            docker compose build backend &&
-            docker compose up -d backend
+            cd ~/ss2cv || mkdir ~/ss2cv && cd ~/ss2cv;
+            if [ ! -d .git ]; then
+              git clone https://github.com/tungts1101/ss2cv.git .;
+            else
+              git pull;
+            fi
+            cd docker &&
+            docker compose up -d --build backend
           "
 
   frontend-deploy:
