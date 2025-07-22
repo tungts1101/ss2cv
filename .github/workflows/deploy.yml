@@ -27,7 +27,7 @@ jobs:
               git pull;
             fi
             cd docker &&
-            docker compose up -d --build backend
+            docker-compose up -d --build backend
           "
 
   frontend-deploy:
