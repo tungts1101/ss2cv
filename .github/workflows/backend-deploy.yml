@@ -1,0 +1,31 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  backend-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH connection
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy Backend on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} "
+            cd ~/ss2cv || mkdir ~/ss2cv && cd ~/ss2cv;
+            if [ ! -d .git ]; then
+              git clone https://github.com/tungts1101/ss2cv.git .;
+            else
+              git pull;
+            fi
+            cd docker &&
+            docker-compose up -d --build backend
+          "
