@@ -4,6 +4,29 @@ services:
       context: ../backend # actual project code
       dockerfile: ../docker/Dockerfile.backend
     container_name: backend
+    environment:
+      ENV: "${ENV}"  
+    volumes:
+      - ../backend:/app
+      - /app/__pycache__
+      - /app/**/__pycache__
+      - /app/venv
     ports:
       - "8000:8000"
+    restart: always
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: frontend
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+      - /app/out
+      - /app/.next
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
     restart: always
