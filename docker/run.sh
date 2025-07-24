@@ -14,4 +14,4 @@ set -a
 set +a
 
 echo "Docker starts services: $SERVICES"
-docker-compose --env-file $ENV_FILE up --build $SERVICES
+docker compose --env-file $ENV_FILE up --build $SERVICES
