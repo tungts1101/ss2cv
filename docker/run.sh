@@ -14,4 +14,11 @@ set -a
 set +a
 
 echo "Docker starts services: $SERVICES"
-docker compose --env-file $ENV_FILE up --build $SERVICES
+
+if [ "$ENV" = "prod" ]; then
+  DETACH="-d"
+else
+  DETACH=""
+fi
+
+docker compose --env-file "$ENV_FILE" up --build $DETACH $SERVICES
