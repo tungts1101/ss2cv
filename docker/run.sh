@@ -8,6 +8,8 @@ else
   ENV_FILE=".env.development"
 fi
 
+cp "$ENV_FILE" .env
+
 echo "Docker uses $ENV_FILE"
 set -a
 . $ENV_FILE
